@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}User Home - Edu-Hub{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Search Across Edu-Hub</h2>
+    <div class="search-container">
+        <form action="{% url 'user_home' %}" method="get">
+            <input type="text" name="query" placeholder="Search..." value="{{ request.GET.query }}" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    {% if request.GET.query %}
+        <h3>Search Results for "{{ request.GET.query }}"</h3>
+        <div class="results">
+            {% for category, items in results.items %}
+                {% if items %}
+                    <div class="category">
+                        <h4 class="category-title">{{ category|capfirst }}</h4>
+                        <div class="cards">
+                            {% for item in items %}
+                                <div class="card">
+                                    {% if category == 'posts' %}
+                                        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                                    {% endif %}
+                                    <div class="card-content">
+                                        <h3 class="card-title">{{ item.title }}</h3>
+                                        <p class="card-description">{{ item.description|slice:":100" }}{% if item.description|length > 100 %}...{% endif %}</p>
+                                        {% if category == 'resources' %}
+                                            <a href="{{ item.file.url }}" class="card-link" target="_blank">View PDF</a>
+                                            <a href="{{ item.file.url }}" class="card-link" download>Download PDF</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

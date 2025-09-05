@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }}'s Profile - Edu-Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+        }
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .profile-header img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin-right: 20px;
+        }
+        .profile-header h1 {
+            margin: 0;
+        }
+        .profile-details {
+            margin-bottom: 20px;
+        }
+        .profile-details dt {
+            font-weight: bold;
+        }
+        .profile-details dd {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Edu-Hub</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'user_home' %}">Home</a></li>
+                <li><a href="{% url 'search_job' %}">Search Job</a></li>
+                <li><a href="{% url 'events' %}">Events</a></li>
+                <li><a href="{% url 'hackathons' %}">Hackathons</a></li>
+                <li><a href="{% url 'project_collab' %}">Project Collaboration</a></li>
+                <li><a href="{% url 'learn_upload' %}">Upload PDF</a></li>
+                <li><a href="{% url 'learn_search' %}">Search for Notes</a></li>
+                <li><a href="{% url 'create_post' %}">Upload Post</a></li>
+                <li><a href="{% url 'view_posts' %}">View Posts</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="profile-header">
+                {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}">
+                {% else %}
+                    <img src="{% static 'default-profile.png' %}" alt="Default Profile Picture">
+                {% endif %}
+                <div>
+                    <h1>{{ user.username }}</h1>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Contact No:</strong> {{ user.contact_no }}</p>
+                    <p><strong>College:</strong> {{ user.college_name }}</p>
+                    <p><strong>Domain:</strong> {{ user.domain }}</p>
+                    <p><strong>Age:</strong> {{ user.age }}</p>
+                    <p><strong>Profession:</strong> {{ user.profession }}</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Edu-Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

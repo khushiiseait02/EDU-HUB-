@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Edu-Hub{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+            position: relative;
+        }
+        h1 {
+            font-size:34px; font-weight:500; text-transform:uppercase;
+          }
+        h1:before {
+              background-color: #c50000;
+              border-radius: 0.25rem;
+              content: '';
+              display: block;
+              height: 0.25rem;
+              width: 42px;
+              margin-bottom: 1.25rem;
+          }
+        h2 {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #202020;
+            text-transform: uppercase;
+            word-spacing: 1px;
+            letter-spacing: 2px;
+        }
+        h2 span {
+            margin-top: 40px;
+            text-transform: none;
+            font-size: .75em;
+            font-weight: normal;
+            font-style: italic;
+            font-family: "Playfair Display", "Bookman", serif;
+            color: #999;
+            letter-spacing: -0.005em;
+            word-spacing: 1px;
+        }
+        
+        h3 {
+            position: relative;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0px;
+            text-transform: uppercase;
+            width: fit-content;
+            text-align: left;
+            margin: 0;
+            white-space: nowrap;
+            border: 2px solid #222;
+            padding: 5px 11px 3px 11px;
+        }
+        h3:before, h3:after {
+            background-color: #c50000;
+            position: absolute;
+            content: '';
+            height: 7px;
+            width: 7px;
+            border-radius: 50%;
+            bottom: 12px;
+        }
+        h3:before {
+            left: -20px;
+        }
+        h3:after {
+            right: -20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        nav ul li {
+            display: inline-block;
+        }
+        nav ul li a {
+            display: block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            background-color: #444;
+        }
+        nav ul li a:hover {
+            background-color: #555;
+        }
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #d9534f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-button:hover {
+            background-color: #c9302c;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .creationContainer {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .back-button-image-page {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        form input[type="text"], form textarea, form input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        form button {
+            padding: 10px 15px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background: #555;
+        }
+        .file-links {
+            margin-top: 10px;
+        }
+        .file-links a {
+            display: inline-block;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: white;
+            border-radius: 4px;
+            background-color: #333;
+            margin-right: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .file-links a:hover {
+            background-color: #555;
+            color: #fff;
+        }
+        .file-links .download {
+            background-color: #d9534f;
+        }
+        .file-links .download:hover {
+            background-color: #c9302c;
+        }
+        
+        .imgcontainer {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .imgcard {
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .imgcard img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .imgcard-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+        
+        .imgcard-description {
+            margin: 0 0 10px;
+            font-size: 13px;
+            color: #545d7a;
+        }
+        
+        .description-text {
+            display: inline;
+        }
+        
+        .read-more {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .read-more:hover {
+            text-decoration: underline;
+        }
+        
+        .view-image {
+            display: block;
+            padding: 5px 0;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .view-image:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: auto;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            margin-bottom: 15px;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .card-description {
+            font-size: 16px;
+            color: #555;
+        }
+        .card-details {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .back-button:hover {
+            background-color: #555;
+        }
+
+        .activities {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .activities-header {
+            margin-bottom: 15px;
+        }
+        
+        .activities-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .activities-description {
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .activities-details {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .activities-link {
+            color: #007BFF;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        
+        .activities-link:hover {
+            text-decoration: underline;
+        }
+        
+        .activities-button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .activities-button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Edu-Hub{% if user.is_authenticated %}, {{ user.username }}{% endif %}</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'user_home' %}">Home</a></li>
+                <li><a href="{% url 'search_job' %}">Search Job</a></li>
+                <li><a href="{% url 'events' %}">Events</a></li>
+                <li><a href="{% url 'hackathons' %}">Hackathons</a></li>
+                <li><a href="{% url 'project_collab' %}">Project Collaboration</a></li>
+                <li><a href="{% url 'learn_upload' %}">Upload PDF</a></li>
+                <li><a href="{% url 'learn_search' %}">Search for Notes</a></li>
+                <li><a href="{% url 'create_post' %}">Upload Post</a></li>
+                <li><a href="{% url 'view_posts' %}">View Posts</a></li>
+                <li><a href="{% url 'my_activity' %}">My Activity</a></li>
+                <li><a href="{% url 'view_join_requests' %}">Notifications</a></li>
+            </ul>
+            <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Page-specific content will be inserted here -->
+        {% endblock %}
+    </main>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+    <footer>
+        <p>&copy; 2024 Edu-Hub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleDescription(event, postId) {
+            event.preventDefault();
+            const descriptionText = document.querySelector(`#desc-${postId}`);
+            const fullDescription = descriptionText.querySelector('.full-description');
+            const readMoreLink = descriptionText.querySelector('.read-more');
+            
+            if (fullDescription.style.display === 'none') {
+                fullDescription.style.display = 'inline';
+                readMoreLink.textContent = 'Read Less';
+            } else {
+                fullDescription.style.display = 'none';
+                readMoreLink.textContent = 'Read More';
+            }
+        }
+        
+            document.getElementById('back-button').addEventListener('click', function() {
+                window.history.back();
+            });
+        
+    </script>
+
+    
+    
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends 'basebody.html' %}
+
+{% block title %}Join Requests - Edu-Hub{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Join Requests</h2>
+        {% if requests %}
+            <ul>
+                {% for request in requests %}
+                    <li>
+                        {{ request.user }} wants to join {{ request.room.title }}
+                        <form method="post" action="{% url 'handle_join_request' request.id 'accept' %}">
+                            {% csrf_token %}
+                            <button type="submit">Accept</button>
+                        </form>
+                        <form method="post" action="{% url 'handle_join_request' request.id 'reject' %}">
+                            {% csrf_token %}
+                            <button type="submit">Reject</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No join requests at the moment.</p>
+        {% endif %}
+    </div>
+{% endblock %}

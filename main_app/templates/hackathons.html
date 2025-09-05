@@ -1,0 +1,26 @@
+{% extends 'basebody.html' %}
+
+{% block title %}Hackathons - Edu-Hub{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <button id="back-button" class="back-button">Go Back</button>
+        <h2>Hackathons</h2>
+        <div class="hackathons-container">
+            {% if hackathons %}
+                {% for hackathon in hackathons %}
+                    <div class="card">
+                        <h3>{{ hackathon.title }}</h3>
+                        <p><strong>Organization:</strong> {{ hackathon.organization.user.username }}</p>
+                        <p><strong>Description:</strong> {{ hackathon.description }}</p>
+                        <p><strong>Venue:</strong> {{ hackathon.venue }}</p>
+                        <p><strong>Date & Time:</strong> {{ hackathon.date_time }}</p>
+                        <p><strong>Mode:</strong> {{ hackathon.get_mode_display }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No hackathons available at the moment.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

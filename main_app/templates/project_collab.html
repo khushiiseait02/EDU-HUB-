@@ -1,0 +1,38 @@
+{% extends 'basebody.html' %}
+
+{% block title %}Project Collaboration - Edu-Hub{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <a href="{% url 'create_project_room' %}" class="back-button">Create Project Room</a> <br />
+        <button id="back-button" class="back-button">Go Back</button>
+        <h2>Project Collaboration</h2>
+        <div class="project-room-container">
+            {% if project_rooms_with_requests %}
+                {% for item in project_rooms_with_requests %}
+                    {% if item.room.required_users != 0 %}
+                        <div class="card project-room-card">
+                            <h3>{{ item.room.title }}</h3>
+                            <p><strong>Description:</strong> {{ item.room.description }}</p>
+                            <p><strong>Required Users:</strong> {{ item.room.required_users }}</p>
+                            <p><strong>Created by:</strong> {{ item.room.owner }}</p>
+                            {% if item.is_owner %}
+                                <p><strong>You are the owner of this room.</strong></p>
+                            {% elif item.join_request_exists %}
+                                <p><strong>Join request already sent.</strong></p>
+                            {% else %}
+                                <form method="post" action="{% url 'send_join_request' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="room_id" value="{{ item.room.id }}">
+                                    <button type="submit">Join Room</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No project rooms available at the moment.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

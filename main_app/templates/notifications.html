@@ -1,0 +1,23 @@
+{% extends 'basebody.html' %}
+
+{% block title %}Notifications - Edu-Hub{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Notifications</h2>
+        <div class="notification-container">
+            {% if notifications %}
+                <ul>
+                    {% for notification in notifications %}
+                        <li class="notification {% if not notification.is_read %}unread{% endif %}">
+                            {{ notification.message }}
+                            <small>{{ notification.created_at }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No notifications available at the moment.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

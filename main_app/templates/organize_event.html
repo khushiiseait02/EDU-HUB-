@@ -1,0 +1,32 @@
+{% extends 'basebodyorg.html' %}
+
+{% block content %}
+<div class="container">
+    <button id="back-button" class="back-button">Go Back</button>
+    <h2 class="card-title">Organize Event</h2>
+    <div class="card">
+        <div class="card-content">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea name="description" class="form-textarea" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="venue">Venue:</label>
+                    <input type="text" name="venue" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="date_time">Date and Time:</label>
+                    <input type="datetime-local" name="date_time" class="form-input" required>
+                </div>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

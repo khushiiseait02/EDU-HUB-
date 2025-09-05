@@ -1,0 +1,27 @@
+{% extends 'basebodyorg.html' %}
+
+{% block title %}Search Job - Edu-Hub{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <button id="back-button" class="back-button">Go Back</button>
+        <h2>Job Listings</h2>
+        {% if jobs %}
+            {% for job in jobs %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ job.title }}</h3>
+                    </div>
+                    <p class="card-description">{{ job.description }}</p>
+                    <div class="card-details">
+                        <p><strong>Posted By:</strong> {{ job.posted_by }}</p>
+                        <p><strong>Organization:</strong> {{ job.organization.description }}</p>
+                        <p><strong>Posted At:</strong> {{ job.posted_at }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No job listings available.</p>
+        {% endif %}
+    </div>
+{% endblock %}

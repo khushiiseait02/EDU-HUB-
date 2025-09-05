@@ -1,0 +1,27 @@
+{% extends 'basebody.html' %}
+
+{% block title %}Events - Edu-Hub{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <button id="back-button" class="back-button">Go Back</button>
+        <h2>Events</h2>
+        {% if events %}
+            {% for event in events %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ event.title }}</h3>
+                    </div>
+                    <p class="card-description">{{ event.description }}</p>
+                    <div class="card-details">
+                        <p><strong>Venue:</strong> {{ event.venue }}</p>
+                        <p><strong>Date & Time:</strong> {{ event.date_time }}</p>
+                        <p><strong>Organized By:</strong> {{ event.organization.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No events available at the moment.</p>
+        {% endif %}
+    </div>
+{% endblock %}

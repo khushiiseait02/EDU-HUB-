@@ -1,0 +1,23 @@
+{% extends 'basebodyorg.html' %}
+
+{% block title %}Learning Resources - Edu-Hub{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <button id="back-button" class="back-button">Go Back</button>
+        <h2>Learning Resources</h2>
+        {% for resource in resources %}
+        <div class="card">
+            <h3>{{ resource.title }}</h3>
+            <p><strong>Domain:</strong> {{ resource.domain }}</p>
+            <p><strong>Description:</strong> {{ resource.description }}</p>
+            <p><strong>Uploaded By:</strong> {{ resource.uploader.username }}</p>
+            <p><strong>Uploaded At:</strong> {{ resource.uploaded_at }}</p>
+            <div class="file-links">
+                <a href="{{ resource.file.url }}" target="_blank">View</a>
+                <a href="{{ resource.file.url }}" download>Download</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

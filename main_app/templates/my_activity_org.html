@@ -1,0 +1,59 @@
+{% extends "basebodyorg.html" %}
+
+{% block title %}My Activity - Edu-Hub{% endblock %}
+
+{% block content %}
+<div class="container">
+    <button id="back-button" class="back-button">Go Back</button>
+    <h2>My Activity</h2>
+    {% for activity in activities %}
+        <div class="activities">
+            <div class="activities-header">
+                <div class="activities-title">{{ activity.instance.title }}</div>
+            </div>
+            <div class="activities-description">{{ activity.instance.description }}</div>
+            <div class="activities-details">
+                {% if activity.type == 'post' %}
+                    <a href="{% url 'edit_activity' 'post' activity.instance.id %}" class="activities-link">Edit Post</a>
+                    <form action="{% url 'delete_activity' 'post' activity.instance.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="activities-button">Delete Post</button>
+                    </form>
+                {% elif activity.type == 'project_room' %}
+                    <a href="{% url 'edit_activity' 'project_room' activity.instance.id %}" class="activities-link">Edit Project Room</a>
+                    <form action="{% url 'delete_activity' 'project_room' activity.instance.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="activities-button">Delete Project Room</button>
+                    </form>
+                {% elif activity.type == 'resource' %}
+                    <a href="{% url 'edit_activity' 'resource' activity.instance.id %}" class="activities-link">Edit Resource</a>
+                    <form action="{% url 'delete_activity' 'resource' activity.instance.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="activities-button">Delete Resource</button>
+                    </form>
+                {% elif activity.type == 'event' %}
+                    <a href="{% url 'edit_activity' 'event' activity.instance.id %}" class="activities-link">Edit Event</a>
+                    <form action="{% url 'delete_activity' 'event' activity.instance.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="activities-button">Delete Event</button>
+                    </form>
+                {% elif activity.type == 'hackathon' %}
+                    <a href="{% url 'edit_activity' 'hackathon' activity.instance.id %}" class="activities-link">Edit Hackathon</a>
+                    <form action="{% url 'delete_activity' 'hackathon' activity.instance.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="activities-button">Delete Hackathon</button>
+                    </form>
+                {% elif activity.type == 'job' %}
+                    <a href="{% url 'edit_activity' 'job' activity.instance.id %}" class="activities-link">Edit Job</a>
+                    <form action="{% url 'delete_activity' 'job' activity.instance.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="activities-button">Delete Job</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p>No activities found.</p>
+    {% endfor %}
+</div>
+{% endblock %}
